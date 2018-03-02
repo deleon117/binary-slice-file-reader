@@ -30,7 +30,15 @@ inds = A.loc[A[0] == 'x1\ty1\tx2\ty2\n'].index
 contour_start_index = A.loc[A[0] == 'Type\tPoint Count\tx1, y1, x2, y2 ...\n'].index[0]
 contour_section_front = 1
 # Find start of fill-scan blocks
-contour_end_index = inds[0] - 6
+if not list(inds.values):
+    scanBlockStart = A.loc[A[0] == 'Scan line blocks [0]\n'].index
+    try:
+        contour_end_index = scanBlockStart[0] - 2
+    except IndexError:
+        print '"Scan line blocks [0]" seems to be missing.'
+        sys.exit()
+else:
+    contour_end_index = inds[0] - 6
 
 # Grab all contours
 allContours = [x[0] for x in A.loc[contour_start_index + contour_section_front:contour_end_index].values.tolist()]

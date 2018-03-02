@@ -26,10 +26,14 @@ A = pd.DataFrame(f.readlines())
 # Find fill-scan block headers
 inds = A.loc[A[0] == 'x1\ty1\tx2\ty2\n'].index
 
+if not list(inds.values):
+    print "No scan blocks found. Exiting..."
+    sys.exit()
+
 # Grab all fill-scan vectors
 # IMPORTANT: If formatting changes, will have to adjust hard-coded values
 section_line_front = 1
-section_line_back = 9
+section_line_back = 6
 allScans = []
 for i in range(len(inds)-1):
     allScans.append([x[0] for x in A.loc[inds[i]+section_line_front:inds[i+1]-section_line_back].values.tolist()])
