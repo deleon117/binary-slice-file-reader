@@ -56,7 +56,7 @@ for s in allScans:
 # Animate the fill scans
 fig, ax = plt.subplots()
 
-line, = ax.plot(x[0], y[0])
+line, = ax.plot(x[0], y[0], marker="x")
 ax.set_xlim([min(x),max(x)])
 ax.set_ylim([min(y),max(y)])
 
